@@ -54,8 +54,7 @@ Finca usu=(Finca) request.getAttribute("datousuario") !=null?
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Colciencias</title>
-
+        <title>Colciencias</title>       
         <link href="css/plugins/chosen/chosen.css" rel="stylesheet">
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -87,7 +86,7 @@ Finca usu=(Finca) request.getAttribute("datousuario") !=null?
 <ul class="nav metismenu" id="side-menu">
 <li class="nav-header">
     <div class="dropdown profile-element"> <span>
-            <img alt="image" class="img-circle" src="img/profile_small.jpg" />
+            <img alt="image" class="img-circle" src="img/logo.jpg" />
         </span>
         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
           <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">Karen Maldonado</strong>

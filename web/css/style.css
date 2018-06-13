@@ -1620,9 +1620,11 @@ div.dt-button-info {
     float: none;
   }
 }
-/* CIRCLE */
+/* CIRCLE circulito*/
 .img-circle {
   border-radius: 50%;
+  width: 150px;
+  height: 150px;
 }
 .btn-circle {
   width: 30px;
