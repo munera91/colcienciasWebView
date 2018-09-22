@@ -7,7 +7,7 @@ public class Conexion {
 
     public static Connection getConexion() {
         //prueba
-        String url = "jdbc:postgresql://localhost:5432/colciencias";
+        String url = "jdbc:postgresql://192.168.1.66:5432/colciencias";
         String usuario = "colciencias";
         String clave = "hola";
         String driver = "org.postgresql.Driver";
