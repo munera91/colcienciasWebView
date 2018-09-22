@@ -30,7 +30,7 @@ public class Daos extends Conexion{
             st = this.getConexion().prepareCall("SELECT \"ID_FINCA\", \"NOMBRE\", \"HECTAREAS\", \"DIRECCION\", \"NOMBRE_PROPIETARIO\", \n" +
 "D.\"idDepartamento\" as IDDEP, D.nombre as DEPARTAMENTO, M.\"idMUNICIPIO\" as IDMUN, M.nombre as MUNICIPIO,\n" +
 "\"TIPO_TERRENO\" FROM public.\"FINCA\" F INNER JOIN public.\"MUNICIPIO\" M ON (M.\"idMUNICIPIO\" = F.\"MUNICIPIO\")\n" +
-"INNER JOIN public.\"DEPARTAMENTO\" D ON (D.\"idDepartamento\" = M.\"idMUNICIPIO\")"); 
+"INNER JOIN public.\"DEPARTAMENTO\" D ON (D.\"idDepartamento\" = M.\"idDepartamento\")"); 
             ResultSet r = st.executeQuery();
             while (r.next()) {
                 Finca u = new Finca();
@@ -63,38 +63,41 @@ public class Daos extends Conexion{
         return listaFincas;
     }
     
-    public Finca getFincaBYID(String idfinca) throws Exception{
+    public Finca getFincaBYID(String idfinca) throws Exception {
 
-        Finca f = new Finca();
-        try {
-            
-            PreparedStatement st;
-            ResultSet r;
+       Finca f = new Finca();
+       try {
 
-            st = this.getConexion().prepareCall("SELECT \"ID_FINCA\", \"NOMBRE\", \"HECTAREAS\","
-                    + " \"DIRECCION\", \"NOMBRE_PROPIETARIO\", \n"
-                    + " \"MUNICIPIO\",\"TIPO_TERRENO\" FROM public.\"FINCA\""
-                    + "WHERE \"ID_FINCA\" = '" + idfinca + "'");
-            r = st.executeQuery();
-            while (r.next()) {
-                f.setIdfinca(r.getString(1));
-                f.setNombre(r.getString(2));
-                f.setHectareas(r.getString(3));
-                f.setDireccion(r.getString(4));
-                f.setPropietario(r.getString(5));
-                f.setTipoterreno(r.getString(6));
-            }
-        }
-        catch (Exception e1) {
-        } finally {
-        }
-        try {
-            this.Cerrar();
-        } catch (Exception clo) {
-        }
+           PreparedStatement st;
+           ResultSet r;
 
-        return f;
-    }
+           st = this.getConexion().prepareCall("SELECT \"ID_FINCA\", \"NOMBRE\", \"HECTAREAS\", \"DIRECCION\", \n"
+                   + "\"NOMBRE_PROPIETARIO\", M.\"idMUNICIPIO\" as municipio, \"TIPO_TERRENO\", D.\"idDepartamento\" as departamento\n"
+                   + "FROM public.\"FINCA\" F\n"
+                   + "INNER JOIN public.\"MUNICIPIO\" M ON (M.\"idMUNICIPIO\" = F.\"MUNICIPIO\")\n"
+                   + "INNER JOIN public.\"DEPARTAMENTO\" D ON (D.\"idDepartamento\" = M.\"idDepartamento\")\n"
+                   + "WHERE \"ID_FINCA\" = '"+idfinca+"'");
+           r = st.executeQuery();
+           while (r.next()) {
+               f.setIdfinca(r.getString(1));
+               f.setNombre(r.getString(2));
+               f.setHectareas(r.getString(3));
+               f.setDireccion(r.getString(4));
+               f.setPropietario(r.getString(5));
+               f.setMunicipio(r.getString(6));
+               f.setTipoterreno(r.getString(7));
+               f.setIddepartamento(r.getString(8));
+           }
+       } catch (Exception e1) {
+       } finally {
+       }
+       try {
+           this.Cerrar();
+       } catch (Exception clo) {
+       }
+
+       return f;
+   }
     
     public void insertarFinca(Finca finca) throws Exception {
         PreparedStatement st, st2;

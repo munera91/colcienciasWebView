@@ -58,13 +58,10 @@ Finca usu=(Finca) request.getAttribute("datousuario") !=null?
         <link href="css/plugins/chosen/chosen.css" rel="stylesheet">
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
-        <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
         <link href="css/animate.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
         <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
 
-    <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
 
     <link href="css/plugins/chosen/chosen.css" rel="stylesheet">
     <link href="css/plugins/toastr/toastr.min.css" rel="stylesheet" type="text/css"/>
@@ -97,7 +94,7 @@ Finca usu=(Finca) request.getAttribute("datousuario") !=null?
     </div>
 </li>
 <li>
-    <a href="index.jsp"><span class="nav-label">Inicio</span></a>
+    <a href="index1.jsp"><span class="nav-label">Inicio</span></a>
 </li>
 
 <li>
@@ -163,7 +160,7 @@ id="" size="1" maxlength="1">
                                  
                                  
                              %>    
-                             <option value="<%=rs.getString("idDepartamento")%>"><%=rs.getString("nombre")%></option>
+                             <option value="<%=rs.getString("idDepartamento")%>"<%= iddepartamento != null && iddepartamento.equals(rs.getString("idDepartamento")) ? "selected" : ""%>><%=rs.getString("nombre") %></option>
                              <%
                               }
                              %>
@@ -186,7 +183,8 @@ id="" size="1" maxlength="1">
                                  
                                  
                              %>    
-                             <option value="<%=rs2.getString("idMUNICIPIO")%>"><%=rs2.getString("nombre")%></option>
+                                                         <option value="<%=rs2.getString("idMUNICIPIO")%>"<%= municipio != null && municipio.equals(rs2.getString("idMUNICIPIO")) ? "selected" : ""%>><%=rs2.getString("nombre") %></option>
+                                                         
                              <%
                               }
                              %>
@@ -219,14 +217,15 @@ id="" size="1" maxlength="1">
                                 ResultSet rs3 = cn3.mostrarTerrenos();
                             %>
                             
-                <select data-placeholder="Seleccion Tipo Terreno" class="chosen-select" multiple style="width:240px;" tabindex="4" name="cbterreno" id="cbterreno" >
+                <select data-placeholder="Seleccione Tipo Terreno" class="chosen-select" multiple style="width:240px;" tabindex="4" name="cbterreno" id="cbterreno" >
                   <option value="">Escoge una opción</option>
                              <%
                                  while(rs3.next()) {
                                  
                                  
                              %>    
-                             <option value="<%=rs3.getString("ID_TIPO_TERRENO")%>"><%=rs3.getString("DESCRIPCION")%></option>
+
+                         <option value="<%=rs3.getString("DESCRIPCION")%>"><%=rs3.getString("DESCRIPCION")%></option>
                              <%
                               }
                              %>
@@ -241,11 +240,12 @@ id="" size="1" maxlength="1">
                     <div class="hr-line-dashed"></div>
                         <div class="form-group">
                             <center>
-                            <div class="col-sm-4 col-sm-offset-2">
+                            <div class="col-sm-5 col-sm-offset-2">
                                 <button class="btn btn-primary" type="submit" name="action" value="nuevo" id="">Limpiar</button>
-                                <a class="button btn btn-primary" name="action" value="guardar" id="btnguardar">Crear</a>
+                                <a class="button btn btn-primary" name="action" id="btnguardar">Crear</a>
                                 <button class="btn btn-primary" type="submit" name="action" value="mostrar" id="btnlistar">Listar</button>
-                                <button class="btn btn-primary" type="submit" name="action" value="actualizar" id="">Actualizar</button>
+                                <a class="button btn btn-primary" name="action" id="btnActualizar">Actualizar</a>
+                                <a class="button btn btn-primary" name="action" id="btnEliminar">Eliminar</a>
                             </div>
                             </center>
                         </div>
@@ -260,7 +260,7 @@ id="" size="1" maxlength="1">
             <p><%=men!=null? men:""%></p>
               <%if(LU!= null ){%>
               
-                <table width="100%" height="200" border="1" cellspacing="3" cellpading=5"" class ="table table-bordered table-striped">
+              <table width="100%" height="200" border="1" cellspacing="3" cellpading=5"" class ="table table-bordered table-striped" id="tableFinca">
 
 
                   <tr>
@@ -278,7 +278,6 @@ id="" size="1" maxlength="1">
 
                   <%for(Finca fin:LU){%>
                   <tr>
-                      
                       <td><%=fin.getNombre()%></td>
                       <td><%=fin.getDireccion()%></td>
                       <td><%=fin.getDepartamento()%></td>
@@ -288,7 +287,6 @@ id="" size="1" maxlength="1">
                       <td><%=fin.getTipoterreno()%></td>
                       
                       <td><a href="./Fincas?action=buscar&txtid=<%=fin.getIdfinca()%>"><img src="img/ver_mas_info.png" border="0" ></a></td>
-                      <td><a href="./Fincas?action=eliminar&txtid=<%=fin.getIdfinca()%>"><img src="img/checkno.png" border="0" ></a></td>
 
                   </tr>
                   <%}%>
@@ -310,29 +308,13 @@ id="" size="1" maxlength="1">
 
     <!-- iCheck -->
     <script src="js/plugins/iCheck/icheck.min.js"></script>
-     <script src="js/jquery-2.1.1.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-
-    <!-- Custom and plugin javascript -->
-    <script src="js/inspinia.js"></script>
-    <script src="js/plugins/pace/pace.min.js"></script>
-    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
     <!-- Chosen -->
     <script src="js/plugins/chosen/chosen.jquery.js"></script>
 
- 
-    <!-- iCheck -->
-    <script src="js/plugins/iCheck/icheck.min.js"></script>
-
     <!-- MENU -->
     <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
 
-    <!-- Color picker -->
-    <script src="js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
-
-    <!-- Image cropper -->
-    <script src="js/plugins/cropper/cropper.min.js"></script>
     <script src="js/plugins/toastr/toastr.min.js" type="text/javascript"></script>
     <script>
         $(document).ready(function(){
@@ -386,9 +368,9 @@ id="" size="1" maxlength="1">
                 return true;
             }     
             
-            var cadena = { "id": "11", "nombre": $("#txtnombre").val(), "hectareas": $("#txthectareas").val(),
+            var cadena = { "id": "100", "nombre": $("#txtnombre").val(), "hectareas": $("#txthectareas").val(),
                 "direccion": $("#txtdireccion").val(), "nombrePropietario": $("#txtnombreprop").val(),
-                "municipio": $("#cbmunicipio").val(), "tipoTerreno": "Rectilineo,Zona Plana"};
+                "municipio": $("#cbmunicipio").val(), "tipoTerreno": $("#cbterreno").val().join(",")};
             var json =JSON.stringify(cadena);
             $.ajax({
                 url: "http://localhost:9533/colciencias/finca/",
@@ -398,15 +380,107 @@ id="" size="1" maxlength="1">
                 data: json,
                 cache: false,
                 success: function (res) {
-                    if (res.success) {
-                      toastr.success('Carga exitosa');
+                    if (res.success.name === "add") {
+                       toastr.success('Error');
                     }
+                },error:function(res){
+                    toastr.success(res.responseText);    
+                    setTimeout(function(){
+                       window.location.assign("Fincas.jsp");
+                      }, 1000);                      
+                    return false;
                 }
             });
-           /*
-            $("#frm").submit();
-            */
         });       
+                
+        $("#btnEliminar").click(function(){
+            
+            if ($("#txtid").val() === "") {
+                 toastr.warning('Debe cargar el registro a eliminar');
+                 return true;
+            } 
+            
+            var cadena = { "id": $('#txtid').val(), "nombre": $("#txtnombre").val(), "hectareas": $("#txthectareas").val(),
+                "direccion": $("#txtdireccion").val(), "nombrePropietario": $("#txtnombreprop").val(),
+                "municipio": $("#cbmunicipio").val(), "tipoTerreno": "convexo"};
+            
+            var json =JSON.stringify(cadena);
+            $.ajax({
+                url: "http://localhost:9533/colciencias/finca/",
+                method: 'DELETE',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: json,
+                cache: false,
+                success: function (res) {
+                    if (res.success.name === "add") {
+                       toastr.success('Error');
+                    }
+                },error:function(res){
+                    toastr.success(res.responseText);
+                    setTimeout(function(){
+                       window.location.assign("Fincas.jsp");
+                      }, 1000);
+                      
+                    return false;
+                }
+            });
+        });
+        
+        $("#btnActualizar").click(function(){
+            
+             if ($("#txtnombre").val() === "" && $("#txthectareas").val()=== "" && $("#txtdireccion").val()==="" && $("#txtnombreprop").val()==="" && $("#cbmunicipio").val() ==="" && $("#cbterreno").val()=== null) {
+                 toastr.warning('Todos los campos son obligatorios');
+                 return true;
+           }else if ($("#txtnombre").val() === "") {
+               toastr.warning('El campo nombre finca es obligatorio');
+               return true;
+           }else if ($("#txtdireccion").val()=== "" ) {
+                toastr.warning('El campo dirección es obligatorio');
+                return true;
+            }  else if ($("#cbdepartamento").val()=== "" ) {
+                toastr.warning('El campo departamento es obligatorio');
+                return true;
+            }else if ($("#cbmunicipio").val()=== "" ) {
+                toastr.warning('El campo municipio es obligatorio');
+                return true;
+            } else if ($("#txtnombreprop").val()=== "" ) {
+                toastr.warning('El campo nombre propietario es obligatorio');
+                return true;
+            } else if ($("#txthectareas").val()=== "" ) {
+                toastr.warning('El campo número de hectáreas es obligatorio');
+                return true;
+            } else if ( $("#cbterreno").val()=== null ) {
+                toastr.warning('El campo tipo terreno es obligatorio');
+                return true;
+            } 
+            
+            var cadena = { "id": $('#txtid').val(), "nombre": $("#txtnombre").val(), "hectareas": $("#txthectareas").val(),
+                "direccion": $("#txtdireccion").val(), "nombrePropietario": $("#txtnombreprop").val(),
+                "municipio": $("#cbmunicipio").val(), "tipoTerreno": $("#cbterreno").val().join(",")};
+            
+            var json =JSON.stringify(cadena);
+            $.ajax({
+                url: "http://localhost:9533/colciencias/finca/",
+                method: 'PUT',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: json,
+                cache: false,
+                success: function (res) {
+                    if (res.success.name === "add") {
+                       toastr.success('Error');
+                    }
+                },error:function(res){
+                    toastr.success(res.responseText);
+                    setTimeout(function(){
+                       window.location.assign("Fincas.jsp");
+                      }, 1000); 
+                    return false;
+                }
+            });
+        });
+        
     </script>
     </form>
     </body>

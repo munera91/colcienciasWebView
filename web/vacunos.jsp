@@ -49,36 +49,17 @@ Vacuno usu=(Vacuno) request.getAttribute("datousuario") !=null?
 
         <link href="css/plugins/chosen/chosen.css" rel="stylesheet">
         <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
-        <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
-        <link href="css/animate.css" rel="stylesheet">
-        <link href="css/style.css" rel="stylesheet">
-        <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
-
-    <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
 
     <link href="css/plugins/chosen/chosen.css" rel="stylesheet">
 
-    <link href="css/plugins/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet">
-
-    <link href="css/plugins/cropper/cropper.min.css" rel="stylesheet">
-
-    <link href="css/plugins/switchery/switchery.css" rel="stylesheet">
-
     <link href="css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet">
-
-    <link href="css/plugins/nouslider/jquery.nouislider.css" rel="stylesheet">
-
-    <link href="css/plugins/datapicker/datepicker3.css" rel="stylesheet">
-
-    <link href="css/plugins/ionRangeSlider/ion.rangeSlider.css" rel="stylesheet">
-    <link href="css/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css" rel="stylesheet">
+    
+    <link href="css/plugins/toastr/toastr.min.css" rel="stylesheet" type="text/css"/>
 
     <link href="css/animate.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
-        <link href="css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
         <script type="text/javascript" src="js/validar.js"> </script>
 
     </head>
@@ -92,7 +73,7 @@ Vacuno usu=(Vacuno) request.getAttribute("datousuario") !=null?
 <ul class="nav metismenu" id="side-menu">
 <li class="nav-header">
     <div class="dropdown profile-element"> <span>
-            <img alt="image" class="img-circle" src="img/profile_small.jpg" />
+            <img alt="image" class="img-circle" src="img/logo.jpg" />
         </span>
         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
           <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">Karen Maldonado</strong>
@@ -103,7 +84,7 @@ Vacuno usu=(Vacuno) request.getAttribute("datousuario") !=null?
     </div>
 </li>
 <li>
-    <a href="index.jsp"><span class="nav-label">Inicio</span></a>
+    <a href="index1.jsp"><span class="nav-label">Inicio</span></a>
 </li>
 
 <li>
@@ -152,14 +133,15 @@ id="" size="1" maxlength="1">
                             <%
                                 ResultSet rs = cn.mostrarFincas();
                             %>
-                         <select class="form-control m-b" name="cbfinca">
+                         <select class="form-control m-b" name="cbfinca" id="cbfinca">
                              <option value="">Escoge una opción</option>
                              <%
                                  while(rs.next()) {
                                  
                                  
                              %>    
-                             <option value="<%=rs.getString("ID_FINCA")%>"><%=rs.getString("NOMBRE")%></option>
+                             <option value="<%=rs.getString("ID_FINCA")%>"<%= idfinca != null && idfinca.equals(rs.getString("ID_FINCA")) ? "selected" : ""%>><%=rs.getString("NOMBRE") %></option>
+                             
                              <%
                               }
                              %>
@@ -169,28 +151,29 @@ id="" size="1" maxlength="1">
                         </div>
                     
                     <div class="form-group"><label class="col-sm-2 control-label">Raza</label>
-                        <div class="col-sm-3"><input type="text" class="form-control" Value="Holstein Friesian" name="txtraza" disabled="True"></div>
+                        <div class="col-sm-3"><input type="text" class="form-control" Value="Holstein Friesian" name="txtraza" disabled="True" id ="txtraza"></div>
 
                     </div>
                         
                </div>
                 
                 <div class="form-group"><label class="col-sm-2 control-label">Número Partos*</label>
-                     <div class="col-sm-3"><input type="text" class="form-control" name="txtpartos" value="<%=numpartos!=null?numpartos:""%>" onkeypress="return numeros(event); "></div>
+                     <div class="col-sm-3"><input type="text" class="form-control" name="txtpartos" value="<%=numpartos!=null?numpartos:""%>" onkeypress="return numeros(event); " id="txtpartos"></div>
                     
                     <div class="form-group"><label class="col-sm-2 control-label">Peso*</label>
-                        <div class="col-sm-3"><input type="text" class="form-control" name="txtpeso" value="<%=peso!=null?peso:""%>" onkeypress="return numeros(event); "></div>
+                        <div class="col-sm-3"><input type="text" class="form-control" name="txtpeso" value="<%=peso!=null?peso:""%>" onkeypress="return numeros(event); " id="txtpeso"></div>
 
                     </div>
                         
                       <div class="hr-line-dashed"></div>
                         <div class="form-group">
                             <center>
-                            <div class="col-sm-4 col-sm-offset-2">
+                            <div class="col-sm-5 col-sm-offset-2">
                                 <button class="btn btn-primary" type="submit" name="action" value="nuevo" id="">Limpiar</button>
-                                <button class="btn btn-primary" type="submit" name="action" value="guardar" id="">Crear</button>
-                                <button class="btn btn-primary" type="submit" name="action" value="mostrar" id="">Listar</button>
-                                <button class="btn btn-primary" type="submit" name="action" value="actualizar" id="">Actualizar</button>
+                                <a class="button btn btn-primary" name="action" id="btnguardar">Crear</a>
+                                <button class="btn btn-primary" type="submit" name="action" value="mostrar">Listar</button>
+                                <a class="button btn btn-primary" name="action" id="btnActualizar">Actualizar</a>
+                                <a class="button btn btn-primary" name="action" id="btnEliminar">Eliminar</a>
                             </div>
                             </center>
                         </div>
@@ -226,7 +209,6 @@ id="" size="1" maxlength="1">
 
                       
                       <td><a href="./Vacunos?action=buscar&txtid=<%=van.getIdvacuno()%>"><img src="img/ver_mas_info.png" border="0" ></a></td>
-                      <td><a href="./Vacunos?action=eliminar&txtid=<%=van.getIdvacuno()%>"><img src="img/checkno.png" border="0" ></a></td>
 
                   </tr>
                   <%}%>
@@ -238,62 +220,145 @@ id="" size="1" maxlength="1">
     </div>
     <!-- Mainly scripts -->
     <script src="js/jquery-2.1.1.js"></script>
+  
     <script src="js/bootstrap.min.js"></script>
+    
+    <script src="js/inspinia.js"></script>
+    <script src="js/plugins/pace/pace.min.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
     <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-
-    <!-- Custom and plugin javascript -->
-    <script src="js/inspinia.js"></script>
-    <script src="js/plugins/pace/pace.min.js"></script>
-
-    <!-- iCheck -->
-    <script src="js/plugins/iCheck/icheck.min.js"></script>
-     <script src="js/jquery-2.1.1.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-
-    <!-- Custom and plugin javascript -->
-    <script src="js/inspinia.js"></script>
-    <script src="js/plugins/pace/pace.min.js"></script>
-    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-
     <!-- Chosen -->
     <script src="js/plugins/chosen/chosen.jquery.js"></script>
 
-   <!-- JSKnob -->
-   <script src="js/plugins/jsKnob/jquery.knob.js"></script>
-
-   <!-- Input Mask-->
-    <script src="js/plugins/jasny/jasny-bootstrap.min.js"></script>
-
-   <!-- Data picker -->
-   <script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
-
-   <!-- NouSlider -->
-   <script src="js/plugins/nouslider/jquery.nouislider.min.js"></script>
-
-   <!-- Switchery -->
-   <script src="js/plugins/switchery/switchery.js"></script>
-
-    <!-- IonRangeSlider -->
-    <script src="js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
-
-    <!-- iCheck -->
-    <script src="js/plugins/iCheck/icheck.min.js"></script>
-
-    <!-- MENU -->
-    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
-
-    <!-- Color picker -->
-    <script src="js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
-
-    <!-- Image cropper -->
-    <script src="js/plugins/cropper/cropper.min.js"></script>
+    <script src="js/plugins/toastr/toastr.min.js" type="text/javascript"></script>
 
     <script>
         $(document).ready(function(){
-            $('#txtid').hide()
-        })
+            $('#txtid').hide();   
+            
+               var config = {
+                '.chosen-select'           : {},
+                '.chosen-select-deselect'  : {allow_single_deselect:true},
+                '.chosen-select-no-single' : {disable_search_threshold:10},
+                '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+                '.chosen-select-width'     : {width:"95%"}
+            }
+            for (var selector in config) {
+                $(selector).chosen(config[selector]);
+            }
+  
+        });
+        
+        $("#btnguardar").click(function () {
+            
+            if ($("#txtpartos").val() === "" && $("#txtpeso").val() === "" && $("#cbfinca").val() === "") {
+                 toastr.warning('Todos los campos son obligatorios');
+                 return true;
+           }else if ($("#txtpartos").val() === "") {
+               toastr.warning('El campo número de partos es obligatorio');
+               return true;
+           }else if ($("#txtpeso").val()=== "" ) {
+                toastr.warning('El campo peso es obligatorio');
+                return true;
+            }else if ($("#cbfinca").val()=== "" ) {
+                toastr.warning('El campo finca es obligatorio');
+                return true;
+            }       
+            
+            var cadena = { "id": "100", "finca": $("#cbfinca").val(), "peso": $("#txtpeso").val(),
+                "numeroPartos": $("#txtpartos").val(), "raza": $("#txtraza").val()};
+            var json =JSON.stringify(cadena);
+            $.ajax({
+                url: "http://localhost:9533/colciencias/vacuno",
+                method: 'POST',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: json,
+                cache: false,
+                success: function (res) {
+                    if (res.success.name === "add") {
+                       toastr.success('Error');
+                    }
+                },error:function(res){
+                    toastr.success(res.responseText);    
+                    setTimeout(function(){
+                       window.location.assign("vacunos.jsp");
+                      }, 1000);                      
+                    return false;
+                }
+            });
+        });
+        
+        $("#btnActualizar").click(function () {
+            
+            if ($("#txtpartos").val() === "" && $("#txtpeso").val() === "" && $("#cbfinca").val() === "") {
+                 toastr.warning('Todos los campos son obligatorios');
+                 return true;
+           }else if ($("#txtpartos").val() === "") {
+               toastr.warning('El campo número de partos es obligatorio');
+               return true;
+           }else if ($("#txtpeso").val()=== "" ) {
+                toastr.warning('El campo peso es obligatorio');
+                return true;
+            }else if ($("#cbfinca").val()=== "" ) {
+                toastr.warning('El campo finca es obligatorio');
+                return true;
+            }       
+            
+            var cadena = { "id": $("#txtid").val(), "finca": $("#cbfinca").val(), "peso": $("#txtpeso").val(),
+                "numeroPartos": $("#txtpartos").val(), "raza": $("#txtraza").val()};
+            var json =JSON.stringify(cadena);
+            $.ajax({
+                url: "http://localhost:9533/colciencias/vacuno",
+                method: 'PUT',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: json,
+                cache: false,
+                success: function (res) {
+                    if (res.success.name === "add") {
+                       toastr.success('Error');
+                    }
+                },error:function(res){
+                    toastr.success(res.responseText);    
+                    setTimeout(function(){
+                       window.location.assign("vacunos.jsp");
+                      }, 1000);                      
+                    return false;
+                }
+            });
+        });
 
+        $("#btnEliminar").click(function () {
+            
+            if ($("#txtid").val() === "") {
+                 toastr.warning('Debe cargar el registro a eliminar');
+                 return true;
+            }       
+            
+            var cadena = { "id": $("#txtid").val(), "finca": $("#cbfinca").val(), "peso": $("#txtpeso").val(),
+                "numeroPartos": $("#txtpartos").val(), "raza": $("#txtraza").val()};
+            var json =JSON.stringify(cadena);
+            $.ajax({
+                url: "http://localhost:9533/colciencias/vacuno",
+                method: 'DELETE',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: json,
+                cache: false,
+                success: function (res) {
+                    if (res.success.name === "add") {
+                       toastr.success('Error');
+                    }
+                },error:function(res){
+                    toastr.success(res.responseText);    
+                    setTimeout(function(){
+                       window.location.assign("vacunos.jsp");
+                      }, 1000);                      
+                    return false;
+                }
+            });
+        });
 
     </script>
     </form>
