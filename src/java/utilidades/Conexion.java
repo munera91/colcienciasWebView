@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 public class Conexion {
 
     public static Connection getConexion() {
+        //prueba
         String url = "jdbc:postgresql://localhost:5432/colciencias";
         String usuario = "colciencias";
         String clave = "hola";
